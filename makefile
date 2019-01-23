@@ -9,7 +9,7 @@ CPPFLAGS += -Wno-unused-parameter
 CPPFLAGS += -I include
 
 # Make it run fast
-# CPPFLAGS += -DNDEBUG=1 -O3
+CPPFLAGS += -DNDEBUG=1 -O3
 
 # Enable pthreads
 CPPFLAGS += -pthread
