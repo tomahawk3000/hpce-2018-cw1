@@ -1,4 +1,5 @@
 #include "julia.hpp"
+#include "tbb/parallel_for.h"
 
 void juliaFrameRender_ParallelBoth(
         unsigned width,     //! Number of pixels across
@@ -8,6 +9,26 @@ void juliaFrameRender_ParallelBoth(
         unsigned *pDest     //! Array of width*height pixels, with pixel (x,y) at pDest[width*y+x]
     )
 {
-    fprintf(stderr, "No implementation of parallel both!\n");
-    exit(1);
+    float dx=3.0f/width, dy=3.0f/height;
+
+    tbb::parallel_for((unsigned) 0, height, [&](unsigned y){
+        tbb::parallel_for((unsigned) 0, width, [&](unsigned x){
+            // Map pixel to z_0
+            complex_t z(-1.5f+x*dx, -1.5f+y*dy);
+
+            //Perform a julia iteration starting at the point z_0, for offset c.
+            //   z_{i+1} = z_{i}^2 + c
+            // The point escapes for the first i where |z_{i}| > 2.
+
+            unsigned iter=0;
+            while(iter<maxIter){
+                if(abs(z) > 2){
+                    break;
+                }
+                z = z*z + c;
+                ++iter;
+            }
+            pDest[y*width+x] = iter;
+        });
+    });
 }

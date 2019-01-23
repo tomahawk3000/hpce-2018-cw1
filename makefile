@@ -15,7 +15,7 @@ CPPFLAGS += -DNDEBUG=1 -O3
 CPPFLAGS += -pthread
 
 # Link in the TBB libraries
-# LDLIBS += -ltbb
+LDLIBS += -ltbb
 
 
 # Define the sources for the various julia engines
