@@ -8,3 +8,4 @@
 *.dll
 bin/
 working/
+/results/.~lock.raw_data.ods#

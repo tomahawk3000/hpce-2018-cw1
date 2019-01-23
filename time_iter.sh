@@ -2,8 +2,9 @@
 
 BIN=$1
 
-for iter in 1 10 100 1000 10000 100000 1000000 ; do
+for iter in 1 100 10000 50000 100000 500000 1000000 ; do
     eval "time ${BIN} -max-iter ${iter} > /dev/null"
+    echo "Max_iter = ${iter}"
 done
 
 
